@@ -1,15 +1,6 @@
+import { gql, useMutation } from "@apollo/client";
 import styled from "styled-components";
-import { FixExtensionContainer } from "../home/ExtensionBox";
 
-const FixExtension = styled.div`
-  width: 100px;
-  margin: 10px;
-`;
-
-const CustomExtension = styled.div`
-  width: 100px;
-  margin: 10px;
-`;
 const ExtensionCheckBoxContainer = styled.div`
   width: 100%;
   display: flex;
@@ -24,15 +15,54 @@ const ExtensionCheckBox = styled.div`
   }
 `;
 
-const FixedExtension = ({ id, title, isActivated }: any) => {
-  return (
+const TOGGLE_EXTENSION_MUTATION = gql`
+  mutation toggleExtension($id: Int!) {
+    toggleExtension(id: $id) {
+      ok
+      error
+    }
+  }
+`;
+
+const FixedExtension = ({ id, title, isActivated, isCustom }: any) => {
+  const updateToggleExtension = (cache: any, result: any) => {
+    const {
+      data: {
+        toggleExtension: { ok },
+      },
+    } = result;
+    if (ok) {
+      const extensionId = `LimitedExtension:${id}`;
+      cache.modify({
+        id: extensionId,
+        fields: {
+          isActivated(prev: boolean) {
+            return !prev;
+          },
+        },
+      });
+    }
+  };
+  const [toggleExtensionMutation] = useMutation(TOGGLE_EXTENSION_MUTATION, {
+    variables: {
+      id,
+    },
+    update: updateToggleExtension,
+  });
+  return !isCustom ? (
     <ExtensionCheckBoxContainer>
       <ExtensionCheckBox key={id}>
-        <input type={"checkbox"} checked={isActivated ? true : false} />
+        <input
+          type={"checkbox"}
+          onChange={() => {
+            toggleExtensionMutation();
+          }}
+          checked={isActivated ? true : false}
+        />
         <span>{title}</span>
       </ExtensionCheckBox>
     </ExtensionCheckBoxContainer>
-  );
+  ) : null;
 };
 
 export default FixedExtension;

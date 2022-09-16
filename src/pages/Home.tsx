@@ -81,19 +81,9 @@ const EXTENSIONS_QUERY = gql`
   }
 `;
 
-const TOGGLE_EXTENSION_MUTATION = gql`
-  mutation toggleExtension($id: Int!) {
-    toggleExtension(id: $id) {
-      ok
-      error
-    }
-  }
-`;
-
 const Home = () => {
   const darkMode = useReactiveVar(darkModeVar);
   const { data } = useQuery(EXTENSIONS_QUERY);
-  const [toggleExtensionMutation] = useMutation(TOGGLE_EXTENSION_MUTATION);
 
   return (
     <HomeLayout>
