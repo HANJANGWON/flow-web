@@ -1,5 +1,12 @@
 import { gql, useMutation, useQuery, useReactiveVar } from "@apollo/client";
-import { faHand, faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
+import {
+  faFolder,
+  faFolderClosed,
+  faHand,
+  faMoon,
+  faSun,
+} from "@fortawesome/free-regular-svg-icons";
+import { faFileArrowUp, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -31,13 +38,18 @@ const CustomExtensionTitle = styled.div`
 
 const UploadButton = styled.button`
   margin-right: 10px;
+  cursor: pointer;
+  border: none;
+  color: ${(props) => props.theme.fontColor};
+  background-color: ${(props) => props.theme.bgColor};
 `;
 
 const Separator = styled.div`
   margin: 20px 0px 30px 0px;
   width: 100%;
   height: 1px;
-  background-color: black;
+
+  background-color: ${(props) => props.theme.fontColor};
 `;
 const DarkModeBtn = styled.span`
   margin-right: 15px;
@@ -48,9 +60,6 @@ const Input = styled.input`
   width: 300px;
 `;
 
-const Button = styled.button`
-  margin-left: 10px;
-`;
 const CustomExtensionResult = styled.div`
   width: 500px;
   height: 250px;
@@ -118,7 +127,13 @@ const Home = () => {
               >
                 <FontAwesomeIcon icon={darkMode ? faSun : faMoon} />
               </DarkModeBtn>
-              <UploadButton>upload</UploadButton>
+              <FontAwesomeIcon
+                style={{
+                  cursor: "pointer",
+                  marginRight: "10px",
+                }}
+                icon={faFileArrowUp}
+              />
             </HeaderButtonContainer>
           </Header>
         </HeaderContainer>
@@ -144,7 +159,9 @@ const Home = () => {
               type="text"
               placeholder="확장자를 입력해주세요..."
             />
-            <Button type="submit">추가</Button>
+            <UploadButton type="submit">
+              <FontAwesomeIcon size="lg" icon={faPlus} />
+            </UploadButton>
           </form>
           <CustomExtensionResult>
             {data?.seeExtensions?.map((extension: any) =>
