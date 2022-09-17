@@ -7,6 +7,10 @@ interface FixedExtensionProps {
   isCustom: boolean;
   isActivated: boolean;
 }
+export const FixExtensionTitle = styled.div`
+  width: 100px;
+  margin: 10px;
+`;
 
 const ExtensionCheckBoxContainer = styled.div`
   width: 100%;
@@ -31,7 +35,7 @@ const TOGGLE_EXTENSION_MUTATION = gql`
   }
 `;
 
-const FixedExtension = ({
+export const FixedExtension = ({
   id,
   title,
   isActivated,
@@ -76,5 +80,3 @@ const FixedExtension = ({
     </ExtensionCheckBoxContainer>
   ) : null;
 };
-
-export default FixedExtension;

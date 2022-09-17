@@ -1,19 +1,17 @@
 import { gql, useMutation, useQuery, useReactiveVar } from "@apollo/client";
-import {
-  faFolder,
-  faFolderClosed,
-  faHand,
-  faMoon,
-  faSun,
-} from "@fortawesome/free-regular-svg-icons";
+import { faHand, faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
 import { faFileArrowUp, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { darkModeVar, disableDarkMode, enableDarkMode } from "../apollo";
-import CustomExtensionItem from "../extension/CustomExtension";
+import {
+  CustomExtensionItem,
+  CustomExtensionResult,
+  CustomExtensionTitle,
+} from "../extension/CustomExtension";
+import { FixedExtension, FixExtensionTitle } from "../extension/FixedExtension";
 
-import FixedExtension from "../extension/FixedExtension";
 import {
   CustomExtensionContainer,
   FixExtensionContainer,
@@ -25,17 +23,9 @@ import {
   HeaderText,
 } from "../home/Header";
 import HomeLayout from "../home/HomeLayout";
+import Input from "../home/Input";
 import PageTitle from "../shared/PageTitle";
-
-const FixExtensionTitle = styled.div`
-  width: 100px;
-  margin: 10px;
-`;
-
-const CustomExtensionTitle = styled.div`
-  width: 100px;
-  margin: 10px;
-`;
+import { Separator } from "../shared/shared";
 
 const UploadButton = styled.button`
   margin-right: 10px;
@@ -45,37 +35,11 @@ const UploadButton = styled.button`
   background-color: ${(props) => props.theme.bgColor};
 `;
 
-const Separator = styled.div`
-  margin: 20px 0px 30px 0px;
-  width: 100%;
-  height: 1px;
-
-  background-color: ${(props) => props.theme.fontColor};
-`;
 const DarkModeBtn = styled.span`
   margin-right: 15px;
   cursor: pointer;
 `;
-const Input = styled.input`
-  background-color: ${(props) => props.theme.bgColor};
-  color: ${(props) => props.theme.fontColor};
-  border-radius: 3px;
-  border: 1px solid;
-  margin: 5px;
-  width: 300px;
-  &::placeholder {
-    color: ${(props) => props.theme.fontColor};
-  }
-`;
 
-const CustomExtensionResult = styled.div`
-  width: 500px;
-  height: 250px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: 1px solid;
-  display: flex;
-`;
 export const EXTENSIONS_QUERY = gql`
   query seeExtensions {
     seeExtensions {

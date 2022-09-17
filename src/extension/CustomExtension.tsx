@@ -17,6 +17,20 @@ const DELETE_EXTENSION_MUTATION = gql`
   }
 `;
 
+export const CustomExtensionTitle = styled.div`
+  width: 100px;
+  margin: 10px;
+`;
+
+export const CustomExtensionResult = styled.div`
+  width: 500px;
+  height: 250px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid;
+  display: flex;
+`;
+
 const CustomExtension = styled.div`
   margin: 15px;
   span {
@@ -24,7 +38,10 @@ const CustomExtension = styled.div`
   }
 `;
 
-const CustomExtensionItem = ({ id, title }: CustomExtensionItemProps) => {
+export const CustomExtensionItem = ({
+  id,
+  title,
+}: CustomExtensionItemProps) => {
   const updateDeleteExtension = (cache: any, result: any) => {
     const {
       data: {
@@ -60,5 +77,3 @@ const CustomExtensionItem = ({ id, title }: CustomExtensionItemProps) => {
     </CustomExtension>
   );
 };
-
-export default CustomExtensionItem;
