@@ -113,6 +113,17 @@ const Home = () => {
       refetchQueries: [{ query: EXTENSIONS_QUERY }],
     });
   };
+  const instpectFile = (event: any) => {
+    const fileName = event.target.files[0].name;
+    const extension = fileName.substr(fileName.lastIndexOf(".") + 1);
+    const limitedExtensions = data?.seeExtensions?.map((ext: any) =>
+      ext.isActivated ? ext.title : null
+    );
+    console.log(limitedExtensions);
+    if (limitedExtensions.includes(extension) === true) {
+      alert("위험도가 높은 파일입니다.");
+    }
+  };
 
   return (
     <HomeLayout>
@@ -127,13 +138,21 @@ const Home = () => {
               >
                 <FontAwesomeIcon icon={darkMode ? faSun : faMoon} />
               </DarkModeBtn>
-              <FontAwesomeIcon
-                style={{
-                  cursor: "pointer",
-                  marginRight: "10px",
-                }}
-                icon={faFileArrowUp}
-              />
+              <label htmlFor="file">
+                <FontAwesomeIcon
+                  style={{
+                    cursor: "pointer",
+                    marginRight: "10px",
+                  }}
+                  icon={faFileArrowUp}
+                />
+                <Input
+                  id="file"
+                  type={"file"}
+                  onChange={instpectFile}
+                  style={{ display: "none" }}
+                />
+              </label>
             </HeaderButtonContainer>
           </Header>
         </HeaderContainer>
