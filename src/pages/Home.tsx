@@ -3,6 +3,7 @@ import { faHand, faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { darkModeVar, disableDarkMode, enableDarkMode } from "../apollo";
+import CustomExtensionFrom from "../extension/CustomExtension";
 import FixedExtension from "../extension/FixedExtension";
 import {
   CustomExtensionContainer,
@@ -16,43 +17,14 @@ import {
 } from "../home/Header";
 import HomeLayout from "../home/HomeLayout";
 
-const FixExtension = styled.div`
+const FixExtensionTitle = styled.div`
   width: 100px;
   margin: 10px;
 `;
 
-const CustomExtension = styled.div`
+const CustomExtensionTitle = styled.div`
   width: 100px;
   margin: 10px;
-`;
-const ExtensionCheckBoxContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-`;
-const ExtensionCheckBox = styled.div`
-  margin: 5px;
-  display: flex;
-  span {
-    margin: 5px;
-    width: 40px;
-  }
-`;
-const CustomExtensionResult = styled.div`
-  width: 500px;
-  height: 250px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: 1px solid;
-`;
-
-const Input = styled.input`
-  margin: 5px;
-  width: 300px;
-`;
-
-const Button = styled.button`
-  margin-left: 10px;
 `;
 
 const UploadButton = styled.button`
@@ -70,7 +42,7 @@ const DarkModeBtn = styled.span`
   cursor: pointer;
 `;
 
-const EXTENSIONS_QUERY = gql`
+export const EXTENSIONS_QUERY = gql`
   query seeExtensions {
     seeExtensions {
       id
@@ -106,7 +78,7 @@ const Home = () => {
       <Separator />
       <FixExtensionContainer>
         <div>
-          <FixExtension>고정 확장자</FixExtension>
+          <FixExtensionTitle>고정 확장자</FixExtensionTitle>
         </div>
         {data?.seeExtensions?.map((extension: any) => (
           <FixedExtension key={extension.id} {...extension} />
@@ -114,15 +86,9 @@ const Home = () => {
       </FixExtensionContainer>
       <CustomExtensionContainer>
         <div>
-          <CustomExtension>커스텀 확장자</CustomExtension>
+          <CustomExtensionTitle>커스텀 확장자</CustomExtensionTitle>
         </div>
-        <div>
-          <form>
-            <Input />
-            <Button type="submit">추가</Button>
-          </form>
-          <CustomExtensionResult></CustomExtensionResult>
-        </div>
+        <CustomExtensionFrom />
       </CustomExtensionContainer>
     </HomeLayout>
   );
