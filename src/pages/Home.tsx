@@ -1,9 +1,11 @@
 import { gql, useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import { faHand, faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { darkModeVar, disableDarkMode, enableDarkMode } from "../apollo";
-import CustomExtensionFrom from "../extension/CustomExtension";
+import CustomExtensionItem from "../extension/CustomExtension";
+
 import FixedExtension from "../extension/FixedExtension";
 import {
   CustomExtensionContainer,
@@ -41,7 +43,22 @@ const DarkModeBtn = styled.span`
   margin-right: 15px;
   cursor: pointer;
 `;
+const Input = styled.input`
+  margin: 5px;
+  width: 300px;
+`;
 
+const Button = styled.button`
+  margin-left: 10px;
+`;
+const CustomExtensionResult = styled.div`
+  width: 500px;
+  height: 250px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid;
+  display: flex;
+`;
 export const EXTENSIONS_QUERY = gql`
   query seeExtensions {
     seeExtensions {
@@ -53,9 +70,40 @@ export const EXTENSIONS_QUERY = gql`
   }
 `;
 
+const CREATE_EXTENSION_MUTATION = gql`
+  mutation createExtension(
+    $title: String!
+    $isCustom: Boolean!
+    $isActivated: Boolean!
+  ) {
+    createExtension(
+      title: $title
+      isCustom: $isCustom
+      isActivated: $isActivated
+    ) {
+      id
+      ok
+      error
+    }
+  }
+`;
 const Home = () => {
   const darkMode = useReactiveVar(darkModeVar);
   const { data } = useQuery(EXTENSIONS_QUERY);
+  const { register, handleSubmit, setValue } = useForm();
+  setValue("title", "");
+  const [createExtensionMutation] = useMutation(CREATE_EXTENSION_MUTATION);
+  const onValid = (data: any) => {
+    const { title } = data;
+    createExtensionMutation({
+      variables: {
+        title,
+        isCustom: true,
+        isActivated: true,
+      },
+      refetchQueries: [{ query: EXTENSIONS_QUERY }],
+    });
+  };
 
   return (
     <HomeLayout>
@@ -88,7 +136,24 @@ const Home = () => {
         <div>
           <CustomExtensionTitle>커스텀 확장자</CustomExtensionTitle>
         </div>
-        <CustomExtensionFrom />
+        <div>
+          <form onSubmit={handleSubmit(onValid)}>
+            <Input
+              {...register("title", { required: true })}
+              name="title"
+              type="text"
+              placeholder="확장자를 입력해주세요..."
+            />
+            <Button type="submit">추가</Button>
+          </form>
+          <CustomExtensionResult>
+            {data?.seeExtensions?.map((extension: any) =>
+              extension.isCustom ? (
+                <CustomExtensionItem key={extension.id} {...extension} />
+              ) : null
+            )}
+          </CustomExtensionResult>
+        </div>
       </CustomExtensionContainer>
     </HomeLayout>
   );
