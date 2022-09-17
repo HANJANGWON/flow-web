@@ -25,6 +25,7 @@ import {
   HeaderText,
 } from "../home/Header";
 import HomeLayout from "../home/HomeLayout";
+import PageTitle from "../shared/PageTitle";
 
 const FixExtensionTitle = styled.div`
   width: 100px;
@@ -56,8 +57,15 @@ const DarkModeBtn = styled.span`
   cursor: pointer;
 `;
 const Input = styled.input`
+  background-color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.fontColor};
+  border-radius: 3px;
+  border: 1px solid;
   margin: 5px;
   width: 300px;
+  &::placeholder {
+    color: ${(props) => props.theme.fontColor};
+  }
 `;
 
 const CustomExtensionResult = styled.div`
@@ -127,6 +135,7 @@ const Home = () => {
 
   return (
     <HomeLayout>
+      <PageTitle title="파일 확장자 차단" />
       <div>
         <HeaderContainer>
           <FontAwesomeIcon icon={faHand} />
@@ -176,7 +185,7 @@ const Home = () => {
               {...register("title", { required: true })}
               name="title"
               type="text"
-              placeholder="확장자를 입력해주세요..."
+              placeholder="확장자를 입력해 주세요..."
             />
             <UploadButton type="submit">
               <FontAwesomeIcon size="lg" icon={faPlus} />

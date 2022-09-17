@@ -1,6 +1,13 @@
 import { gql, useMutation } from "@apollo/client";
 import styled from "styled-components";
 
+interface FixedExtensionProps {
+  id: number;
+  title: string;
+  isCustom: boolean;
+  isActivated: boolean;
+}
+
 const ExtensionCheckBoxContainer = styled.div`
   width: 100%;
   display: flex;
@@ -24,7 +31,12 @@ const TOGGLE_EXTENSION_MUTATION = gql`
   }
 `;
 
-const FixedExtension = ({ id, title, isActivated, isCustom }: any) => {
+const FixedExtension = ({
+  id,
+  title,
+  isActivated,
+  isCustom,
+}: FixedExtensionProps) => {
   const updateToggleExtension = (cache: any, result: any) => {
     const {
       data: {

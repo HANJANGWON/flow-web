@@ -4,6 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styled from "styled-components";
 
+interface CustomExtensionItemProps {
+  id: number;
+  title: string;
+}
+
 const DELETE_EXTENSION_MUTATION = gql`
   mutation deleteExtension($id: Int!) {
     deleteExtension(id: $id) {
@@ -19,7 +24,7 @@ const CustomExtension = styled.div`
   }
 `;
 
-const CustomExtensionItem = ({ id, title }: any) => {
+const CustomExtensionItem = ({ id, title }: CustomExtensionItemProps) => {
   const updateDeleteExtension = (cache: any, result: any) => {
     const {
       data: {
