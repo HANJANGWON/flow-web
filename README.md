@@ -1,46 +1,49 @@
-# Getting Started with Create React App
+## Built with
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Front-end
 
-## Available Scripts
+- `React`
+- `Typescript`
+- `Apollo Client`
+- `GraphQL Code Generator`
+- `Styled Components`
 
-In the project directory, you can run:
+### Back-end
 
-### `npm start`
+- `NodeJS`
+- `Apollo Server`
+- `GraphQL`
+- `PostgreSQL`
+- `Prisma`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Deploy
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- `Netlify`
+- `Heroku`
 
-### `npm test`
+## Project
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> 1. 고정확장자, 커스텀 확장자
 
-### `npm run build`
+- 고정확장자 체크박스를 클릭하거나, 커스텀 확장자를 입력하면 데이터베이스에 등록됩니다.
+- 체크박스를 해제하거나, 커스텀 확장자를 삭제하면 데이터베이스에서 삭제됩니다.
+- 커스텀 확장자를 삭제하게 되면, `Apollo Client`를 통해 캐시된 필드 값을 직접 수정하여 목록을 업데이트합니다.
+- 입력한 커스텀 확장자가 고정 확장자 또는 커스텀 확장자 목록에 이미 존재하면 추가할 수 없습니다.
+- 파일을 업로드하면 확장자를 검사하고 체크박스에 표시된 확장자 또는 커스텀 확장자에 해당할 경우 경고메세지를 출력합니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> 2. 다크모드
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 해와 달 아이콘을 클릭하여 라이트 모드와 다크 모드로 설정할 수 있습니다.
+- `Styled Components ThemeProvider`를 이용하여 라이트 테마와 다크 테마를 설정합니다.
+- 모드 전환 시, 활성 상태를 로컬 스토리지에 저장하고, `Apollo Client Reactive variables`를 사용하여 local state를 업데이트합니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> 3. 베포
 
-### `npm run eject`
+- `Front-end` -> `Netlify`
+- `Back-end` -> `Heroku`
+- `Database` -> `Heroku PostgreSQL`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+> 4. git
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `Front-end` -> https://github.com/HANJANGWON/flow-web
+- `Back-end` -> https://github.com/HANJANGWON/flow
