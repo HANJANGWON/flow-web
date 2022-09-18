@@ -8,6 +8,7 @@ import { darkModeVar, disableDarkMode, enableDarkMode } from "../apollo";
 import {
   CustomExtensionItem,
   CustomExtensionResult,
+  CustomExtensionsNumber,
   CustomExtensionTitle,
 } from "../extension/CustomExtension";
 import { FixedExtension, FixExtensionTitle } from "../extension/FixedExtension";
@@ -47,6 +48,7 @@ export const EXTENSIONS_QUERY = gql`
       title
       isCustom
       isActivated
+      customExtensionsNumber
     }
   }
 `;
@@ -91,7 +93,6 @@ const Home = () => {
     const limitedExtensions = data?.seeExtensions?.map((ext: any) =>
       ext.isActivated ? ext.title : null
     );
-    console.log(limitedExtensions);
     if (limitedExtensions.includes(extension) === true) {
       alert("위험도가 높은 파일입니다.");
     }
@@ -157,6 +158,9 @@ const Home = () => {
             </UploadButton>
           </form>
           <CustomExtensionResult>
+            <CustomExtensionsNumber>
+              {data?.seeExtensions[0]?.customExtensionsNumber}/200
+            </CustomExtensionsNumber>
             {data?.seeExtensions?.map((extension: any) =>
               extension.isCustom ? (
                 <CustomExtensionItem key={extension.id} {...extension} />

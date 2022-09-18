@@ -31,7 +31,13 @@ export const CustomExtensionResult = styled.div`
   display: flex;
 `;
 
+export const CustomExtensionsNumber = styled.div`
+  margin: 8px 0px 0px 8px;
+  font-size: 10px;
+`;
+
 const CustomExtension = styled.div`
+  padding-top: 10px;
   margin: 15px;
   span {
     margin-right: 3px;
@@ -43,6 +49,7 @@ export const CustomExtensionItem = ({
   title,
 }: CustomExtensionItemProps) => {
   const updateDeleteExtension = (cache: any, result: any) => {
+    console.log(cache);
     const {
       data: {
         deleteExtension: { ok },
@@ -52,6 +59,11 @@ export const CustomExtensionItem = ({
       cache.evict({ id: `LimitedExtension:${id}` });
       cache.modify({
         id: `LimitedExtension:${id}`,
+        fields: {
+          customExtensionsNumber(prev: any) {
+            return prev - 1;
+          },
+        },
       });
     }
   };
