@@ -1,4 +1,4 @@
-import { ApolloClient, gql, InMemoryCache, useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
