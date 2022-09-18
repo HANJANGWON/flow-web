@@ -7,6 +7,7 @@ const Input = styled.input`
   border: 1px solid;
   margin: 5px;
   width: 300px;
+  padding: 7px;
   &::placeholder {
     color: ${(props) => props.theme.fontColor};
   }
