@@ -3,7 +3,6 @@ import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styled from "styled-components";
-import { EXTENSIONS_QUERY } from "../pages/Home";
 
 interface CustomExtensionItemProps {
   id: number;
@@ -50,7 +49,6 @@ export const CustomExtensionItem = ({
   title,
 }: CustomExtensionItemProps) => {
   const updateDeleteExtension = (cache: any, result: any) => {
-    console.log(cache);
     const {
       data: {
         deleteExtension: { ok },
@@ -70,7 +68,7 @@ export const CustomExtensionItem = ({
   };
   const [deleteExtensionMutation] = useMutation(DELETE_EXTENSION_MUTATION, {
     variables: { id },
-    refetchQueries: [{ query: EXTENSIONS_QUERY }],
+    update: updateDeleteExtension,
   });
   const onDeleteClick = () => {
     deleteExtensionMutation();
