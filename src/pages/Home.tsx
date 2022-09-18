@@ -149,6 +149,7 @@ const Home = () => {
               {...register("title", { required: true })}
               name="title"
               type="text"
+              maxLength={20}
               placeholder="확장자를 입력해 주세요..."
             />
             <UploadButton type="submit">
