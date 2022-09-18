@@ -3,7 +3,7 @@
     <br /><br />
     <a display="block" href="https://flow-web.netlify.app">https://flow-web.netlify.app</a>
     <br /><br />
-    <img height="700" src="./previews/1.png" />
+    <img width="70%"  height="600" src="./previews/1.png" />
   </a>
 </div>
 
