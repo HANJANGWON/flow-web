@@ -1,9 +1,8 @@
-import { gql, useMutation } from "@apollo/client";
+import { ApolloClient, gql, InMemoryCache, useMutation } from "@apollo/client";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styled from "styled-components";
-import { EXTENSIONS_QUERY } from "../pages/Home";
 
 interface CustomExtensionItemProps {
   id: number;
@@ -49,27 +48,26 @@ export const CustomExtensionItem = ({
   id,
   title,
 }: CustomExtensionItemProps) => {
-  // const updateDeleteExtension = (cache: any, result: any) => {
-  //   const {
-  //     data: {
-  //       deleteExtension: { ok },
-  //     },
-  //   } = result;
-  //   if (ok) {
-  //     cache.evict({ id: `LimitedExtension:${id}` });
-  //     cache.modify({
-  //       id: `LimitedExtension:${id}`,
-  //       fields: {
-  //         customExtensionsNumber(prev: any) {
-  //           return prev - 1;
-  //         },
-  //       },
-  //     });
-  //   }
-  // };
+  const updateDeleteExtension = (cache: any, result: any) => {
+    const {
+      data: {
+        deleteExtension: { ok },
+      },
+    } = result;
+    if (ok) {
+      cache.modify({
+        id: `LimitedExtension:${id}`,
+        fields: {
+          customExtensionsNumber() {
+            return;
+          },
+        },
+      });
+    }
+  };
   const [deleteExtensionMutation] = useMutation(DELETE_EXTENSION_MUTATION, {
     variables: { id },
-    refetchQueries: [{ query: EXTENSIONS_QUERY }],
+    update: updateDeleteExtension,
   });
   const onDeleteClick = () => {
     deleteExtensionMutation();
